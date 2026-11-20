@@ -2,7 +2,7 @@ import MarkdownIt from 'markdown-it'
 
 export const themes = {
   ink: {
-    syntax: 'material-theme-palenight', background: '#25233b', foreground: '#edeafb',
+    syntax: 'one-dark-pro', background: '#25233b', foreground: '#edeafb',
     bar: '#2f2a47', label: '#e8ddff', border: '#3d3655', dot: '#c5a7fb',
   },
   paper: {

@@ -20,7 +20,7 @@ const highlighter = await createHighlighterCore({
     import('@shikijs/langs/diff'),
   ],
   themes: [
-    import('@shikijs/themes/material-theme-palenight'),
+    import('@shikijs/themes/one-dark-pro'),
     import('@shikijs/themes/github-light'),
     import('@shikijs/themes/github-dark'),
   ],
