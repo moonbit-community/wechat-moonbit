@@ -1,0 +1,23 @@
+{
+  "name": "wechat-moonbit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@shikijs/langs": "4.6.0",
+    "@shikijs/themes": "4.6.0",
+    "markdown-it": "15.0.3",
+    "shiki": "4.6.0"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "typescript": "~6.0.0",
+    "vite": "8.3.8"
+  }
+}

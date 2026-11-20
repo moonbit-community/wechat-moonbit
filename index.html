@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="预览 Markdown 和 MoonBit 代码，一键复制富文本到微信公众号编辑器。">
+    <meta name="theme-color" content="#f7f7fb">
+    <link rel="icon" href="./moon.svg" type="image/svg+xml">
+    <title>MoonBit 公众号排版</title>
+  </head>
+  <body>
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-library" aria-hidden="true">
+      <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 6-6 6 6 6m8-12 6 6-6 6m-2-16-4 20"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Zm0 0v6h6M8 13h8m-8 4h6"/></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6m4-6v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+      <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 6v-3.9a3.3 3.3 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.7A5.2 5.2 0 0 0 19 5.2a4.8 4.8 0 0 0-.1-3.6S17.8 1.3 15 3a13.4 13.4 0 0 0-6 0C6.2 1.3 5.1 1.6 5.1 1.6A4.8 4.8 0 0 0 5 5.2a5.2 5.2 0 0 0-1.4 3.6c0 5.2 3.2 6.4 6.2 6.7A3.3 3.3 0 0 0 9 18.1V22"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 17h2"/></symbol>
+      <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="6" y="10" width="12" height="10" rx="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3m-4 4v2"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+      <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-4 4 4-4 4 4M4 16v4h16v-4"/></symbol>
+    </svg>
+
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand"><img src="./moon.svg" alt="" width="34" height="34"><span>MoonBit</span><span class="brand-divider" aria-hidden="true"></span><span class="brand-description">运营工具</span></div>
+        <a class="github-link" href="https://github.com/moonbit-community/wechat-moonbit" target="_blank" rel="noopener noreferrer">
+          <svg class="icon" aria-hidden="true"><use href="#i-github"/></svg><span>源代码</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="shell">
+      <div class="intro">
+        <div>
+          <h1>微信公众号排版</h1>
+          <p>粘贴 Markdown 或导入文稿，预览后复制到公众号编辑器。</p>
+        </div>
+        <button type="button" class="button primary" id="copy-all" disabled>
+          <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span id="copy-label">复制整篇富文本</span>
+        </button>
+      </div>
+
+      <div class="workspace">
+        <section class="panel editor-panel" aria-labelledby="editor-title">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span class="panel-icon"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg></span>
+              <div><h2 id="editor-title">Markdown 文稿</h2><p>编辑文章与代码块</p></div>
+            </div>
+            <button class="button quiet" id="open-file" type="button">
+              <svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg>导入文件
+            </button>
+            <input id="file-input" type="file" accept=".md,.markdown,.txt,.mbt,.mbtx,text/plain,text/markdown" hidden>
+          </div>
+          <div class="toolbar editor-toolbar">
+            <div class="toolbar-group">
+              <button class="button quiet insert-button" id="insert-code" type="button"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg>插入代码块</button>
+              <button class="button quiet" id="load-example" type="button">载入示例</button>
+            </div>
+            <button class="button quiet clear-button" id="clear" type="button" aria-label="清空文稿" title="清空文稿"><svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg></button>
+          </div>
+          <textarea id="source" aria-labelledby="editor-title" placeholder="在这里粘贴 Markdown，或点击「导入文件」…" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+          <div class="panel-footer"><span id="line-count"></span><span id="draft-status"></span></div>
+        </section>
+
+        <section class="panel preview-panel" aria-labelledby="preview-title">
+          <div class="panel-header">
+            <div class="panel-title">
+              <span class="panel-icon preview-icon"><svg class="icon" aria-hidden="true"><use href="#i-monitor"/></svg></span>
+              <div><h2 id="preview-title">排版预览</h2><p>预览与富文本复制共用样式</p></div>
+            </div>
+            <div class="segments" role="group" aria-label="预览内容">
+              <button type="button" id="show-article" aria-pressed="true">整篇</button>
+              <button type="button" id="show-code" aria-pressed="false">代码块</button>
+            </div>
+          </div>
+          <div class="toolbar preview-toolbar">
+            <div class="toolbar-group theme-group">
+              <label for="code-theme">代码主题</label>
+              <div class="select-wrap">
+                <span id="theme-swatch" aria-hidden="true"></span>
+                <select id="code-theme">
+                  <option value="ink">深墨</option>
+                  <option value="paper">浅纸</option>
+                  <option value="pine">松绿</option>
+                </select>
+              </div>
+            </div>
+            <div class="segments viewport-switch" role="group" aria-label="预览宽度">
+              <button type="button" id="view-wide" aria-pressed="true" aria-label="宽屏预览" title="宽屏预览"><svg class="icon" aria-hidden="true"><use href="#i-monitor"/></svg></button>
+              <button type="button" id="view-phone" aria-pressed="false" aria-label="手机预览" title="手机预览"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></button>
+            </div>
+          </div>
+          <div class="preview-scroll" id="preview-scroll" tabindex="0" aria-label="排版预览内容">
+            <div id="preview" class="preview-paper"></div>
+          </div>
+          <div class="panel-footer"><span id="block-count"></span><span>复制后直接粘贴到微信公众平台</span></div>
+        </section>
+      </div>
+
+      <footer class="shell-footer"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>文稿在浏览器中处理，草稿仅保存在当前浏览器。</footer>
+    </main>
+
+    <div class="toast" id="toast" role="status" hidden></div>
+    <noscript>请启用 JavaScript 以使用排版工具。</noscript>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
